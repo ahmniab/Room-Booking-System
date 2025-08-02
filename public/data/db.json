@@ -1,0 +1,24 @@
+{
+    "rooms": [
+        {
+            "id": "room-1",
+            "name": "Conference Room A",
+            "capacity": 10,
+            "pricePerHour": 200,
+            "availability": {
+                "2025-08-01": true,
+                "2025-08-02": false
+            }
+        },
+        {
+            "id": "room-2",
+            "name": "Meeting Room B",
+            "capacity": 4,
+            "pricePerHour": 100,
+            "availability": {
+                "2025-08-01": true,
+                "2025-08-02": true
+            }
+        }
+    ]
+}

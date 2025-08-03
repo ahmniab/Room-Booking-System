@@ -10,6 +10,9 @@ export const globalTheme = createTheme({
       default: '#121212',
       paper: '#1e1e1e',
     },
+    action: {
+      hover: '#404040'
+    }
   },
   breakpoints: {
     values: {

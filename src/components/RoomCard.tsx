@@ -8,7 +8,7 @@ function RoomCard(props: RoomCardProps) {
     const {room} = props;
     const isAvailable = canRoomBeBooked(room); 
   return (
-    <Box sx={{ minWidth: 275 }}>
+    <Box sx={{ minWidth: {md: 275} }}>
         <Card variant="outlined">
             <React.Fragment>
                 <CardContent>

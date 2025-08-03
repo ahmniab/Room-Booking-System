@@ -32,7 +32,7 @@ function Checkout() {
         if (room?.availability[date]) {
             getDatesInDuration(date, duration / 24)
             .forEach((d) => {
-                if (!room.availability[d]) {
+                if (room !== undefined && room.availability[d]) {
                     return false;
                 }
             });

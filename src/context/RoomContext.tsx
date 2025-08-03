@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { RoomContextType, Room } from '../types/types';
 import { fetchRooms, updateRoom, getDatesInDuration } from '../utilities/Helper';
 
@@ -18,6 +18,7 @@ export const RoomProvider = ({ children }:{children: ReactNode}) => {
     const refreshRooms = async (): Promise<void> => {
         try {
             const fetchedRooms = await fetchRooms();
+            console.log(`Fetched ${fetchedRooms.length} rooms`);
             setRooms(fetchedRooms);
         } catch (error) {
             throw error;
@@ -72,6 +73,11 @@ export const RoomProvider = ({ children }:{children: ReactNode}) => {
 
         return true;
     };
+    useEffect(() => {
+        refreshRooms().catch(error => {
+            console.error(`Failed to fetch rooms on initialization: ${error}`);
+        });
+    }, []);
 
 
     return (

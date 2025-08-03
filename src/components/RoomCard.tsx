@@ -3,10 +3,17 @@ import {Box, Card, CardActions, CardContent, Button, Typography, Chip} from '@mu
 import PeopleIcon from '@mui/icons-material/People';
 import {RoomCardProps} from '../types/types';
 import {canRoomBeBooked} from '../utilities/Helper';
+import { useNavigate } from 'react-router-dom';
 
 function RoomCard(props: RoomCardProps) {
     const {room} = props;
     const isAvailable = canRoomBeBooked(room); 
+    const navigate = useNavigate();
+    const handleBookNow = () => {
+        if (isAvailable) {
+            navigate(`/checkout/${room.id}`);
+        }
+    };
   return (
     <Box sx={{ minWidth: {md: 275} }}>
         <Card variant="outlined">
@@ -24,7 +31,12 @@ function RoomCard(props: RoomCardProps) {
                         sx={{ mt: 1 }}/>
                 </CardContent>
                 <CardActions>
-                    <Button disabled={!isAvailable} size="small">Book Now</Button>
+                    <Button 
+                    disabled={!isAvailable} 
+                    size="small"
+                    onClick={handleBookNow}>
+                        Book Now
+                    </Button>
                 </CardActions>
             </React.Fragment>
         </Card>

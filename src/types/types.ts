@@ -16,12 +16,10 @@ export type RoomContextType = {
 }
 
 export interface BookingDetails {
-    user: {
-        name: string;
-        email: string;
-    };
+    email: string;
+    name: string;
     roomId: string;
-    startTime: string; 
+    startDate: string; 
     duration: number;
     totalCost: number;
 }
@@ -32,7 +30,12 @@ export type BookingContextType = {
   setSelectedRoom: (room: string ) => void;
   setBookingDetails: (details: BookingDetails) => void;
 };
-
+export interface BookingFormErrors {
+  name?: string;
+  email?: string;
+  duration?: string;
+  startDate?: string;
+}
 //props 
 export interface RoomCardProps {
   room: Room;
@@ -40,4 +43,7 @@ export interface RoomCardProps {
 export interface RoomDatePickerProps {
   dateValue: string | null;
   onDateChange: (date: string | null) => void;
+}
+export interface CheckoutFormProps {
+  onValidSubmit: (details: BookingDetails) => void;
 }

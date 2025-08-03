@@ -37,7 +37,7 @@ export type BookingContextType = {
 export interface RoomCardProps {
   room: Room;
 }
-export interface HomeBarProps {
+export interface RoomDatePickerProps {
   dateValue: string | null;
   onDateChange: (date: string | null) => void;
 }

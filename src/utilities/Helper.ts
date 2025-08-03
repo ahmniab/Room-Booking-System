@@ -32,3 +32,11 @@ export function getDatesInDuration(date: string, duration:number): string[] {
     return dates;
 }
 
+export function canRoomBeBooked(room: Room): boolean {
+    if (!room || !room.availability) {
+        return false;
+    }
+    const availableDates = Object.keys(room.availability).filter(date => room.availability[date]);
+    return availableDates.length > 0;
+}
+

@@ -32,3 +32,7 @@ export type BookingContextType = {
   setSelectedRoom: (room: string ) => void;
   setBookingDetails: (details: BookingDetails) => void;
 };
+
+export interface RoomCardProps {
+  room: Room;
+}

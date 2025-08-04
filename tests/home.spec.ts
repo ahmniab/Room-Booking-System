@@ -48,7 +48,6 @@ test('Available can be selected', async ({ page }) => {
   const roomContainer = page.locator('#root > div:nth-child(2)');
   const room = roomContainer.locator('>div').first();
   
-  // 
   await expect(room).toContainText('Conference Room A');
   await room.locator('button').click();
   await expect(page).toHaveURL(/checkout/);

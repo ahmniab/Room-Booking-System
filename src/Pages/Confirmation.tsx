@@ -5,6 +5,7 @@ import { useBooking } from '../context/BookingContext';
 import { useEffect, useState } from 'react';
 import { Room } from '../types/types';
 import { useNavigate } from 'react-router-dom';
+import { convertTo12HourFormat } from '../utilities/Helper';
 
 const ConfirmationContainer = styled(Box)(({ theme }) => ({
     display: 'flex',
@@ -39,10 +40,10 @@ function Confirmation() {
                 <h1>Booking Confirmed!</h1>
                 <p>Thank you for your booking, {bookingDetails.name}!</p>
                 <p>Room: {roomInfo?.name}</p>
-                <p>Date {bookingDetails.startDate},Duration: {bookingDetails.duration} hours</p>
+                <p>Date {bookingDetails.startDate}, Time {convertTo12HourFormat(bookingDetails.startTime as string)}</p>
+                <p>Duration: {bookingDetails.duration} hours</p>
                 <p>Total Cost: ${bookingDetails.totalCost.toFixed(2)}</p>
             <Button 
-                variant="contained"
                 onClick={() => {navigate('/');}}
             >
                 Back to Home

@@ -18,25 +18,7 @@ const DetailElement = styled('p')(({ theme }) => ({
     textTransform: 'capitalize',
 
 }));
-const DetailsList = styled('ol')(({ theme }) => ({
-    listStyleType: 'none',
-    padding: 0,
-    margin: 0,
-    textAlign: 'left',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    maxHeight: '200px',
-    overflowY: 'auto',
 
-}));
-const DetailsListElement = styled('li')(({ theme }) => ({
-    textAlign: 'center',
-    marginBottom: '5px',
-    display: 'flex',
-    alignItems: 'center',
-}));
 
 function RoomDetails(params:RoomCardProps) {
     const { room } = params;
@@ -46,14 +28,6 @@ function RoomDetails(params:RoomCardProps) {
             <h2>{room.name}</h2>
             <DetailElement>cost: {room.pricePerHour}$ per hour</DetailElement>
             <DetailElement>capacity: {room.capacity} peaple</DetailElement>
-            <DetailElement>available days</DetailElement>
-            <DetailsList>
-                {Object.keys(room.availability).map((date) => room.availability[date] ? (
-                    <DetailsListElement key={date}>
-                        {date}
-                    </DetailsListElement>
-                ) : null)}
-            </DetailsList>
         </DetailsBox>
     );
     

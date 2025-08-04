@@ -1,12 +1,11 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { Room, BookingDetails, CheckoutFormProps } from '../types/types';
+import { Room, BookingDetails } from '../types/types';
 import { useRoom } from '../context/RoomContext';
 import { useBooking } from '../context/BookingContext';
 import { useEffect, useState } from 'react';
 import RoomDetails from '../components/RoomDetails';
 import CheckoutForm from '../components/CheckoutForm';
 import { Box } from '@mui/material';
-import { getDatesInDuration } from '../utilities/Helper';
 
 
 
@@ -16,6 +15,7 @@ function Checkout() {
     const bookingContext = useBooking();
     const navigate = useNavigate();
     let [room, setRoom] = useState<Room | undefined>(undefined);
+    let [availableDays, setAvailableDays] = useState< string[]>([]);
     useEffect(() => {
         if (roomId) {
             try {
@@ -24,18 +24,19 @@ function Checkout() {
             } catch (error) {
                 setRoom(undefined);
                 console.error(`Error fetching room: ${error}`);
+            }finally {
+                if (room) {
+                    setAvailableDays(Object.keys(room.availability)
+                        .map((date) => room?.availability[date] ? date : null)
+                        .filter((date) => date !== null) as string[]);
+                    console.log(availableDays);
+                }
             }
         }
-    }, [roomId, roomContext]);
+    }, [roomId, roomContext, room, availableDays]);
 
     const roomCanBeBooked = (date:string, duration:number) =>{
         if (room?.availability[date]) {
-            getDatesInDuration(date, duration / 24)
-            .forEach((d) => {
-                if (room !== undefined && room.availability[d]) {
-                    return false;
-                }
-            });
             return true;
         }
     }
@@ -44,6 +45,13 @@ function Checkout() {
             data.totalCost = (room?.pricePerHour || 0) * data.duration;
             data.roomId = room?.id || '';
             bookingContext.setBookingDetails(data);
+            try {
+                if (room) {
+                    roomContext.bookRoom(room, data.startDate);
+                }
+            }catch (error) {
+                console.error(`Error setting room: ${error}`);
+            }
             navigate('/confirmation');
         }
     };
@@ -60,7 +68,8 @@ function Checkout() {
                         <h1>Checkout Page</h1>
                         <RoomDetails room={room}/>
                     <CheckoutForm 
-                        onValidSubmit={handleValidSubmit} />
+                        onValidSubmit={handleValidSubmit} 
+                        availableDays={availableDays}/>
                     </Box>
                 </>
             ) : (

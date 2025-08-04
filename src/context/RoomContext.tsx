@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { RoomContextType, Room } from '../types/types';
-import { fetchRooms, updateRoom, getDatesInDuration } from '../utilities/Helper';
+import { fetchRooms, updateRoom } from '../utilities/Helper';
 
 const RoomsContext = createContext<RoomContextType>({
     rooms: null,
@@ -36,8 +36,6 @@ export const RoomProvider = ({ children }:{children: ReactNode}) => {
         } else {
             updateRoom(room).then(() => {
                 refreshRooms().then(() => {return;});
-            }).catch(error => {
-                console.error(`Failed to update room: ${error}`);
             });
         }
     };
@@ -48,26 +46,14 @@ export const RoomProvider = ({ children }:{children: ReactNode}) => {
         return date? rooms.filter(room => room.availability[date] === true) : rooms;
     };
     
-    const bookRoom = (room:Room, duration:number, startDate: string): boolean => {
+    const bookRoom = (room:Room, startDate: string): boolean => {
         if (rooms == null) {
-            throw new Error('Rooms not initialized');
-        }
-        if (!room || Object.keys(room.availability).length < duration ||!room.availability[startDate]) {
             return false;
         }
-        const datesInDuration = getDatesInDuration(startDate, duration);
-        datesInDuration.forEach(date => {
-            if (room.availability[date] !== undefined || !room.availability[date]) {
-                return false; 
-            }
-        });
-        datesInDuration.forEach(date => {
-            room.availability[date] = false;
-        });
+        room.availability[startDate] = false;
         try {
             setRoom(room).then(() => {return true;});
         } catch (error) {
-            console.error(`Failed to book room: ${error}`);
             return false;
         }
 

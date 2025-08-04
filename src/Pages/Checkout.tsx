@@ -33,7 +33,7 @@ function Checkout() {
                 }
             }
         }
-    }, [roomId, roomContext, room, availableDays]);
+    }, [roomId, roomContext, room]);
 
     const roomCanBeBooked = (date:string, duration:number) =>{
         if (room?.availability[date]) {

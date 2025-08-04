@@ -1,7 +1,7 @@
 import { BookingDetails, BookingFormErrors, CheckoutFormProps } from "../types/types";
 import { useState, useEffect } from "react";
 import { Button, TextField, Box, styled } from "@mui/material";
-import { MobileTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { DesktopTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Dayjs } from "dayjs";
 import { FormControl, InputLabel, Select, MenuItem, Alert } from '@mui/material';
@@ -186,7 +186,7 @@ function CheckoutForm(props: CheckoutFormProps) {
                     </Select>
                     </FormControl>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <MobileTimePicker
+                    <DesktopTimePicker
                         label="Select Time"
                         value={selectedTimeDate}
                         onChange={setSelectedTimeDate}

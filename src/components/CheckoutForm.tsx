@@ -91,7 +91,6 @@ function CheckoutForm(props: CheckoutFormProps) {
             setError(name, undefined);
         }).catch((error: any) => {
             setError(name, error.message);
-            console.error(`Validation error for name: ${error.message}`);
         });
     }
     // Validation 

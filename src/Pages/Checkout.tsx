@@ -20,16 +20,13 @@ function Checkout() {
         if (roomId) {
             try {
                 setRoom(roomContext.getRoomById(roomId));
-                console.log(room);
             } catch (error) {
                 setRoom(undefined);
-                console.error(`Error fetching room: ${error}`);
             }finally {
                 if (room) {
                     setAvailableDays(Object.keys(room.availability)
                         .map((date) => room?.availability[date] ? date : null)
                         .filter((date) => date !== null) as string[]);
-                    console.log(availableDays);
                 }
             }
         }

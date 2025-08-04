@@ -45,7 +45,6 @@ export const tryParseDuration = (value: string): number => {
     post: returns time in 12-hour format with AM/PM
 */
 export function convertTo12HourFormat(time: string): string {
-    console.log(`Converting time: ${time}`);
 
     const splitTime = time.split(':');
     let hours = parseInt(splitTime[0]);

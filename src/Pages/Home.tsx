@@ -29,7 +29,6 @@ function Home() {
     let [searchDate, setSearchDate] = useState<string | null>(null);
     useEffect(() => {
         if (roomContext.rooms) {
-            console.log(`Date value in home: ${searchDate}`);
             let filteredRooms = roomContext.getAvailableRooms(searchDate)
             setRooms(filteredRooms);
         } else {

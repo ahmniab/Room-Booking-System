@@ -18,7 +18,6 @@ export const RoomProvider = ({ children }:{children: ReactNode}) => {
     const refreshRooms = async (): Promise<void> => {
         try {
             const fetchedRooms = await fetchRooms();
-            console.log(`Fetched ${fetchedRooms.length} rooms`);
             setRooms(fetchedRooms);
         } catch (error) {
             throw error;

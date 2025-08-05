@@ -1,6 +1,6 @@
 # Room Booking System
 
-## Install
+## Install And Run
 ### Frist: Clone the project
 ```bash
 git clone https://github.com/ahmniab/Room-Booking-System.git
@@ -17,4 +17,10 @@ json-server --watch db.json --port 4000
 2. Run React app
 ```bash
 npm start
+```
+## Test The project
+all tests written in tests folder in `ts` 
+you can run the tests using 
+```bash
+npx playwright test  
 ```

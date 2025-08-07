@@ -32,13 +32,13 @@ function Checkout() {
         }
     }, [roomId, roomContext, room]);
 
-    const roomCanBeBooked = (date:string, duration:number) =>{
+    const roomCanBeBooked = (date:string) =>{
         if (room?.availability[date]) {
             return true;
         }
     }
     const handleValidSubmit = (data:BookingDetails) => {
-        if (roomCanBeBooked(data.startDate, data.duration)) {
+        if (roomCanBeBooked(data.startDate)) {
             data.totalCost = (room?.pricePerHour || 0) * data.duration;
             data.roomId = room?.id || '';
             bookingContext.setBookingDetails(data);

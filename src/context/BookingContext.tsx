@@ -10,8 +10,6 @@ const BookingContext = createContext<BookingContextType>(
   export const BookingProvider = ({ children }:{children: ReactNode}) => {
     
     const [booking, setBooking] = useState<BookingDetails | null>(null);
-    const [roomId, setRoomId] = useState<string | null>(null);
-
 
   return (
     <BookingContext.Provider value={{ 

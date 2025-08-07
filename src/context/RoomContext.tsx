@@ -51,7 +51,7 @@ export const RoomProvider = ({ children }:{children: ReactNode}) => {
         }
         room.availability[startDate] = false;
         try {
-            setRoom(room).then(() => {return true;});
+            setRoom(room);
         } catch (error) {
             return false;
         }

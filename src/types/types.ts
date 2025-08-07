@@ -26,9 +26,7 @@ export interface BookingDetails {
 }
 
 export type BookingContextType = {
-  selectedRoom: string | null;
   bookingDetails: BookingDetails | null;
-  setSelectedRoom: (room: string ) => void;
   setBookingDetails: (details: BookingDetails) => void;
 };
 export interface BookingFormErrors {

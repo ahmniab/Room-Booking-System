@@ -3,9 +3,7 @@ import { BookingContextType, BookingDetails } from '../types/types';
 
 const BookingContext = createContext<BookingContextType>(
   {
-      selectedRoom: null, 
       bookingDetails: null, 
-      setSelectedRoom: ()=> {}, 
       setBookingDetails: () => {}
   });
 
@@ -19,8 +17,6 @@ const BookingContext = createContext<BookingContextType>(
     <BookingContext.Provider value={{ 
         bookingDetails: booking, 
         setBookingDetails : setBooking, 
-        selectedRoom: roomId,
-        setSelectedRoom: setRoomId 
         }}>
       {children}
     </BookingContext.Provider>

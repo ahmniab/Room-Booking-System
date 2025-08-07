@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { Room } from '../types/types';
 import { useNavigate } from 'react-router-dom';
 import { convertTo12HourFormat } from '../utilities/Helper';
+import ConnectionError from '../components/ConnectionError';
 
 const ConfirmationContainer = styled(Box)(({ theme }) => ({
     display: 'flex',
@@ -24,7 +25,7 @@ function Confirmation() {
     let [roomInfo, setRoom] = useState<Room | undefined>(undefined);
 
     useEffect(() => {
-        if (bookingDetails?.roomId) {
+        if (roomContext.isThereAConnection() && bookingDetails?.roomId) {
             setRoom(roomContext.getRoomById(bookingDetails.roomId));
         }
     }, [bookingDetails, roomContext]);
@@ -35,20 +36,27 @@ function Confirmation() {
 
     
     return (
-        <ConfirmationContainer>
-            <CheckIcon color="success" fontSize="large" />
+        <>
+            {(roomContext.isThereAConnection())?(
+                
+                <ConfirmationContainer>
+                <CheckIcon color="success" fontSize="large" />
                 <h1>Booking Confirmed!</h1>
                 <p>Thank you for your booking, {bookingDetails.name}!</p>
                 <p>Room: {roomInfo?.name}</p>
                 <p>Date {bookingDetails.startDate}, Time {convertTo12HourFormat(bookingDetails.startTime as string)}</p>
                 <p>Duration: {bookingDetails.duration} hours</p>
                 <p>Total Cost: ${bookingDetails.totalCost.toFixed(2)}</p>
-            <Button 
+                <Button 
                 onClick={() => {navigate('/');}}
-            >
+                >
                 Back to Home
-            </Button>
-        </ConfirmationContainer>
+                </Button>
+                </ConfirmationContainer>
+            ):(
+                <ConnectionError />
+            )};
+        </>
     );
 }
 export default Confirmation;

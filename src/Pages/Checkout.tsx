@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import RoomDetails from '../components/RoomDetails';
 import CheckoutForm from '../components/CheckoutForm';
 import { Box } from '@mui/material';
+import ConnectionError from '../components/ConnectionError';
 
 
 
@@ -54,28 +55,30 @@ function Checkout() {
     };
     return (
         <>
-            {(room !== undefined)? (
-                <>
-                    <Box sx={{ 
-                        display: 'flex', 
-                        justifyContent: 'center', 
-                        alignItems: 'center', 
-                        padding: 2,
-                        flexDirection: 'column',}}>
+            <Box sx={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                padding: 2,
+                flexDirection: 'column',}}>
+                {(roomContext.isThereAConnection())?(room !== undefined)? (
+                    <>
                         <h1>Checkout Page</h1>
                         <RoomDetails room={room}/>
-                    <CheckoutForm 
-                        onValidSubmit={handleValidSubmit} 
-                        availableDays={availableDays}/>
-                    </Box>
-                </>
-            ) : (
-                <div>
-                    <h1>Room Not Found</h1>
-                    <p>The room with ID {roomId} does not exist.</p>
-                </div>
-            )}
-        </>
+                        <CheckoutForm 
+                            onValidSubmit={handleValidSubmit} 
+                            availableDays={availableDays}/>
+                    </>
+                    ) : (
+                        <div>
+                            <h1>Room Not Found</h1>
+                            <p>The room with ID {roomId} does not exist.</p>
+                        </div>
+                ):(
+                    <ConnectionError />
+                )}
+        </Box>
+</>
     );
 }
 export default Checkout;

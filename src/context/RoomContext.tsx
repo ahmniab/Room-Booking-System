@@ -9,18 +9,24 @@ const RoomsContext = createContext<RoomContextType>({
     setRoom: () => {},
     getRoomById: () => undefined,
     getAvailableRooms: () => [],
-    bookRoom: () => false
+    bookRoom: () => false,
+    isThereAConnection: () => false,
 });
 
 export const RoomProvider = ({ children }:{children: ReactNode}) => {
 
     const [rooms, setRooms] = useState<Room[] | null>(null);
+    const [isConnected, setIsConnected] = useState<boolean>(rooms !== null);
+    const isThereAConnection = (): boolean => {
+        return isConnected;
+    };
     const refreshRooms = async (): Promise<void> => {
         try {
             const fetchedRooms = await fetchRooms();
             setRooms(fetchedRooms);
+            setIsConnected(true);
         } catch (error) {
-            throw error;
+            setIsConnected(false);
         }
     };
     const getRoomById = (id: string): Room | undefined => {
@@ -61,7 +67,9 @@ export const RoomProvider = ({ children }:{children: ReactNode}) => {
     useEffect(() => {
         refreshRooms().catch(error => {
             console.error(`Failed to fetch rooms on initialization: ${error}`);
+            setIsConnected(false);
         });
+        setIsConnected(true);
     }, []);
 
 
@@ -73,7 +81,8 @@ export const RoomProvider = ({ children }:{children: ReactNode}) => {
             setRoom: setRoom, 
             getRoomById: getRoomById,
             getAvailableRooms: getAvailableRooms,
-            bookRoom: bookRoom
+            bookRoom: bookRoom,
+            isThereAConnection: isThereAConnection
         }}>
         {children}
         </RoomsContext.Provider>

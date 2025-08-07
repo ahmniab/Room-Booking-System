@@ -13,6 +13,7 @@ export type RoomContextType = {
   getRoomById: (id: string) => Room | undefined;
   getAvailableRooms: (date: string | null) => Room[];
   bookRoom: (room:Room, startDate: string) => boolean;
+  isThereAConnection: () => boolean;
 }
 
 export interface BookingDetails {

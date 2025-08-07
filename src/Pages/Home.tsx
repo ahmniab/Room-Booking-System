@@ -1,10 +1,9 @@
-import Grid from '@mui/material/Grid';
 import RoomCard from '../components/RoomCard';
 import { Room } from '../types/types';
 import { useRoom } from '../context/RoomContext';
 import { useEffect, useState } from 'react';
 import HomeBar from '../components/HomeBar';
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import SearchOffOutlinedIcon from '@mui/icons-material/SearchOffOutlined';
 import ConnectionError from '../components/ConnectionError'
 

@@ -21,14 +21,13 @@ function Checkout() {
         if (roomId) {
             try {
                 setRoom(roomContext.getRoomById(roomId));
-            } catch (error) {
-                setRoom(undefined);
-            }finally {
                 if (room) {
                     setAvailableDays(Object.keys(room.availability)
                         .map((date) => room?.availability[date] ? date : null)
                         .filter((date) => date !== null) as string[]);
                 }
+            } catch (error) {
+                setRoom(undefined);
             }
         }
     }, [roomId, roomContext, room]);
@@ -77,8 +76,8 @@ function Checkout() {
                 ):(
                     <ConnectionError />
                 )}
-        </Box>
-</>
+            </Box>
+        </>
     );
 }
 export default Checkout;
